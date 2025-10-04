@@ -1,0 +1,99 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "poppins", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #2c3e50;
+    color: white;
+}
+
+.game-container {
+    background: #0f0f1e;    
+    padding: 20px 30px;        
+    border-radius: 10px;        
+    box-shadow: 0 4px 8px 12px rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+
+#startScreen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(15, 15, 30, 0.95);
+    padding: 30px 40px;
+    border-radius: 10px;
+    text-align: center;
+    width: 70%;
+}
+
+#startScreen p {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+#startScreen button {
+    margin-top: 15px;
+}
+
+canvas {
+    background: #1a1a2e;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.game-info {
+    display: flex;
+    justify-content: center;
+}
+
+.info-item {
+    margin: 0 25px;
+}
+
+.hidden {
+    display: none;
+}
+
+#scoreDisplay, #livesDisplay {
+    color: #3498db;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin-top: 20px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    border: none;
+}
+
+button:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
+}
+
+#gameOver {
+    text-align: center;
+    margin: 20px;
+}
+
+#gameOver h2 {
+    color: red;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
