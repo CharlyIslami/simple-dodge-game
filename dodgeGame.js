@@ -21,3 +21,45 @@ startButton.addEventListener("click", function() {
     gameLoop();
 });
 
+const player = {
+    x: canvas.width / 2 - 20,
+    y: canvas.height - 60,
+    height: 40,
+    width: 40,
+    speed: 7,
+    color: "#3498db"
+};
+
+function drawPlayer() {
+    ctx.fillStyle = player.color;
+    ctx.fillRect(player.x, player.y, player.width, player.height);  
+}
+
+const keys = {
+    left: false,
+    right: false
+};
+
+document.addEventListener("keydown", function(e){
+    if (e.key === "a" || e.key === "ArrowLeft"){
+        keys.left = true;
+    }
+    if (e.key === "d" || e.key === "ArrowRight"){
+        keys.left = true;
+    }
+});
+
+document.addEventListener("keyup", function(e){
+    if (e.key === "a" || e.key === "ArrowLeft"){
+        keys.left = false;
+    }
+    if (e.key === "d" || e.key === "ArrowRight"){
+        keys.right = false;
+    }
+});
+
+
+
+
+
+
