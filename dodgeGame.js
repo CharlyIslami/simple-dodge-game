@@ -16,8 +16,8 @@ let gameRunning = false;
 startButton.addEventListener("click", function() {
     startScreen.classList.add("hidden");
     document.querySelector(".game-info").classList.remove("hidden");
-    gameRunning = true;
     
+    gameRunning = true;
     gameLoop();
 });
 
@@ -26,7 +26,7 @@ const player = {
     y: canvas.height - 60,
     height: 40,
     width: 40,
-    speed: 7,
+    speed: 3,
     color: "#3498db"
 };
 
@@ -45,7 +45,7 @@ document.addEventListener("keydown", function(e){
         keys.left = true;
     }
     if (e.key === "d" || e.key === "ArrowRight"){
-        keys.left = true;
+        keys.right = true;
     }
 });
 
@@ -58,7 +58,32 @@ document.addEventListener("keyup", function(e){
     }
 });
 
+function updatePlayer() {
+    if (keys.left && player.x > 0) {
+        player.x -= player.speed;
+    }
+    if (keys.right && player.x < canvas.width - player.width) {
+        player.x += player.speed;
+    }
+};
 
+function update() {
+    updatePlayer();
+    
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawPlayer();
+}
+
+function gameLoop() {
+    if (gameRunning) {
+        update();
+        draw();
+        requestAnimationFrame(gameLoop);
+    }
+}
 
 
 
