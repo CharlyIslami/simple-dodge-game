@@ -5,7 +5,7 @@ const startScreen = document.getElementById("startScreen");
 const startButton = document.getElementById("startButton");
 const scoreDisplay = document.getElementById("scoreDisplay");
 const livesDisplay = document.getElementById("livesDisplay");
-const gameOver = document.getElementById("gameOver");
+const gameOverScreen = document.getElementById("gameOver");
 const finalScore = document.getElementById("finalScore");
 const restartButton = document.getElementById("restartButton");
 
@@ -26,19 +26,19 @@ const player = {
     y: canvas.height - 60,
     height: 40,
     width: 40,
-    speed: 3,
+    speed: 4,
     color: "#3498db"
 };
 
 let obstacles = [];
 
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 10; i++) {
     obstacles.push({
         x: Math.random() * canvas.width,
-        y: 0,
+        y: -i * 100,
         width: 30,
         height: 30,
-        speed: 7,
+        speed: 5 + Math.random() * 2,
         color: "red"
     });
 }
@@ -90,20 +90,88 @@ function updatePlayer() {
 
 function updateObstacles() {
     for (let i = 0; i < obstacles.length; i++) {
-        let obs = obstacles[i];
-        obs.y += obs.speed;
-
-        if (obs.y > canvas.height) {
-            obs.y = 0;
-            obs.x = Math.random() * canvas.width;
+        obstacles[i].y += obstacles[i].speed;
+        if (obstacles[i].y > canvas.height) {
+            obstacles[i].y = -30;
+            obstacles[i].x = Math.random() * (canvas.width - 30);
+            obstacles[i].speed = 3 + Math.random() * 2;
+            score += 10;  
+            scoreDisplay.textContent = score;
         }
     }
 }
 
+function checkCollision() {
+    for (let i = 0; i < obstacles.length; i++) {
+        let obs = obstacles[i];
+        
+        if (player.x < obs.x + obs.width &&
+            player.x + player.width > obs.x &&
+            player.y < obs.y + obs.height &&
+            player.y + player.height > obs.y) {
+            
+            // Tabrakan terjadi!
+            lives -= 1;
+            livesDisplay.textContent = lives;
+            
+            // Reset posisi obstacle
+            obs.y = -30;
+            obs.x = Math.random() * (canvas.width - 30);
+            
+            // Cek game over
+            if (lives <= 0) {
+                gameOver();
+            }
+        }
+    }
+}
+
+function gameOver() {
+    gameRunning = false;
+    gameOverScreen.classList.remove("hidden");
+    finalScore.textContent = score;
+    
+    if (score < 500) {
+        document.getElementById("hasil").innerHTML = "Gapande maen lo";
+
+    }
+
+     if (score > 500) {
+        document.getElementById("hasil").innerHTML = "Lumayan juga lu";
+
+    }  
+}
+
+restartButton.addEventListener("click", function() {
+    score = 0;
+    lives = 3;
+    scoreDisplay.textContent = score;
+    livesDisplay.textContent = lives;
+
+    player.x = canvas.width / 2 - 20;
+    player.y = canvas.height - 60;
+
+    obstacles = [];
+    for (let i = 0; i < 5; i++) {
+        obstacles.push({
+            x: Math.random() * (canvas.width - 30),
+            y: -i * 100,
+            width: 30,
+            height: 30,
+            speed: 3 + Math.random() * 2,
+            color: "red"
+        });
+    }
+
+    gameOverScreen.classList.add("hidden");
+    gameRunning = true;
+    gameLoop();
+});
+
 function update() {
     updatePlayer();
     updateObstacles();
-
+    checkCollision();
 }
 
 function draw() {
@@ -119,6 +187,8 @@ function gameLoop() {
         requestAnimationFrame(gameLoop);
     }
 }
+
+
 
 
 

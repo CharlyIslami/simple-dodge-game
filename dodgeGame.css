@@ -97,3 +97,14 @@ button:hover {
     font-size: 36px;
     margin-bottom: 10px;
 }
+
+#gameOver p {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.hasil {
+    font-size: 1.2rem;
+    color: red;
+    text-transform: uppercase;
+}
