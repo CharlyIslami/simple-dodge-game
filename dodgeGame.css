@@ -85,6 +85,7 @@ button {
 button:hover {
     transform: translateY(-3px) scale(1.03);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
+    letter-spacing: 1px;
 }
 
 #gameOver {

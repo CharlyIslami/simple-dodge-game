@@ -15,7 +15,7 @@ let gameRunning = false;
 
 startButton.addEventListener("click", function () {
     startScreen.classList.add("hidden");
-    document.querySelector(".game-info").classList.remove("hidden");
+    document.querySelector(".game-info").classList.toggle("hidden");
 
     gameRunning = true;
     gameLoop();
@@ -26,19 +26,19 @@ const player = {
     y: canvas.height - 60,
     height: 40,
     width: 40,
-    speed: 4,
+    speed: 2,
     color: "#3498db"
 };
 
 let obstacles = [];
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 7; i++) {
     obstacles.push({
         x: Math.random() * canvas.width,
         y: -i * 100,
         width: 30,
         height: 30,
-        speed: 5 + Math.random() * 2,
+        speed: 2 + Math.random() * 2,
         color: "red"
     });
 }
@@ -110,15 +110,12 @@ function checkCollision() {
             player.y < obs.y + obs.height &&
             player.y + player.height > obs.y) {
             
-            // Tabrakan terjadi!
             lives -= 1;
             livesDisplay.textContent = lives;
-            
-            // Reset posisi obstacle
+
             obs.y = -30;
             obs.x = Math.random() * (canvas.width - 30);
-            
-            // Cek game over
+
             if (lives <= 0) {
                 gameOver();
             }
@@ -131,15 +128,18 @@ function gameOver() {
     gameOverScreen.classList.remove("hidden");
     finalScore.textContent = score;
     
-    if (score < 500) {
-        document.getElementById("hasil").innerHTML = "Gapande maen lo";
+    if (score < 1000) {
+        document.getElementById("hasil").innerHTML = "Gapande maen";
 
     }
 
-     if (score > 500) {
+    else if (score < 2000) {
         document.getElementById("hasil").innerHTML = "Lumayan juga lu";
 
     }  
+    else if (score > 2000) {
+        document.getElementById("hasil").innerHTML = "Jago juga lu";
+    }
 }
 
 restartButton.addEventListener("click", function() {
@@ -151,14 +151,14 @@ restartButton.addEventListener("click", function() {
     player.x = canvas.width / 2 - 20;
     player.y = canvas.height - 60;
 
-    obstacles = [];
+   obstacles = [];
     for (let i = 0; i < 5; i++) {
         obstacles.push({
             x: Math.random() * (canvas.width - 30),
             y: -i * 100,
             width: 30,
             height: 30,
-            speed: 3 + Math.random() * 2,
+            speed:  5 + Math.random() * 2,
             color: "red"
         });
     }
